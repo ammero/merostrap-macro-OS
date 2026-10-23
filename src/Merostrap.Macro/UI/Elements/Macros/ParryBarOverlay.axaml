@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:m="using:Merostrap.Macros"
+ x:Class="Merostrap.UI.Elements.Macros.ParryBarOverlay" x:DataType="m:ParryBarController"
+ Title="Merostrap parry bar" Width="{Binding BarWidth}" Height="{Binding BarHeight}" MinHeight="{Binding BarHeight}" MaxHeight="{Binding BarHeight}" CanResize="False"
+ WindowDecorations="None" Topmost="True" ShowInTaskbar="False" ShowActivated="False"
+ Background="Transparent" TransparencyLevelHint="Transparent" RequestedThemeVariant="Dark">
+ <Border PointerPressed="DragPressed" Background="#202622" BorderBrush="#50756A" BorderThickness="1" CornerRadius="0" Height="{Binding BarHeight}" ClipToBounds="True" AutomationProperties.Name="Parry cooldown" AutomationProperties.HelpText="{Binding Status}">
+  <Grid>
+  <Rectangle Name="CooldownFill" IsVisible="{Binding !HasImage}" Fill="{Binding FillBrush}" RenderTransformOrigin="0%,50%">
+   <Rectangle.RenderTransform><ScaleTransform ScaleX="{Binding DisplayFillRatio}"/></Rectangle.RenderTransform>
+  </Rectangle>
+  <Border Name="ImageReveal" IsVisible="{Binding HasImage}" Width="{Binding DisplayImageFillWidth}" HorizontalAlignment="Left" ClipToBounds="True">
+   <Image Name="ParryImage" Source="{Binding BarImage}" Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" HorizontalAlignment="Left" Stretch="Fill"/>
+  </Border>
+  </Grid>
+ </Border>
+</Window>

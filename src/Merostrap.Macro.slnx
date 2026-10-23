@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Merostrap.Macro/Merostrap.Macro.csproj" />
+  <Project Path="vendor/LucideAvalonia/LucideAvalonia.csproj" />
+</Solution>

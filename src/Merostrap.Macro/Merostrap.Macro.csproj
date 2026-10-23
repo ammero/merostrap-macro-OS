@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <AssemblyName>Merostrap.Macro</AssemblyName>
+    <RootNamespace>Merostrap</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>Resources/Brand/Merostrap.ico</ApplicationIcon>
+    <Version>3.52.0</Version>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <OcrDataPath>$(MSBuildProjectDirectory)/.build/ocr/eng.traineddata</OcrDataPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.2" />
+    <PackageReference Include="AnimatedImage.Avalonia" Version="2.1.4" />
+    <PackageReference Include="Interop.UIAutomationClient" Version="10.19041.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.8" />
+    <PackageReference Include="Tesseract" Version="5.2.0" GeneratePathProperty="true" />
+    <ProjectReference Include="../vendor/LucideAvalonia/LucideAvalonia.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Resources/**" />
+    <EmbeddedResource Include="Resources/Ritual/*.json" />
+    <EmbeddedResource Include="$(OcrDataPath)" LogicalName="Ocr.tessdata.eng.traineddata" />
+    <EmbeddedResource Include="$(NuGetPackageRoot)tesseract/5.2.0/x64/tesseract50.dll" LogicalName="Ocr.x64.tesseract50.dll" />
+    <EmbeddedResource Include="$(NuGetPackageRoot)tesseract/5.2.0/x64/leptonica-1.82.0.dll" LogicalName="Ocr.x64.leptonica-1.82.0.dll" />
+    <Content Include="../../LICENSE" Link="LICENSE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../LICENSES/**" Link="LICENSES/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../vendor/LucideAvalonia/LICENSE" Link="LICENSES/LucideAvalonia-MIT.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../vendor/LucideAvalonia/Lucide/LICENSE" Link="LICENSES/Lucide-ISC.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="PrepareEnglishOcrData" BeforeTargets="PrepareForBuild">
+    <MakeDir Directories="$(MSBuildProjectDirectory)/.build/ocr" />
+    <DownloadFile Condition="!Exists('$(OcrDataPath)')"
+      SourceUrl="https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/9ddc24e750eec0994223a9edc3fcb434a2244f3b/eng.traineddata"
+      DestinationFolder="$(MSBuildProjectDirectory)/.build/ocr" DestinationFileName="eng.traineddata" />
+    <GetFileHash Files="$(OcrDataPath)" Algorithm="SHA256">
+      <Output TaskParameter="Items" ItemName="_EnglishOcrHash" />
+    </GetFileHash>
+    <Error Condition="'%(_EnglishOcrHash.FileHash)' != '8280AED0782FE27257A68EA10FE7EF324CA0F8D85BD2FD145D1C2B560BCB66BA'"
+      Text="English OCR data failed verification. Remove .build/ocr/eng.traineddata and rebuild." />
+  </Target>
+  <Target Name="RemoveDuplicateOcrPublishFiles" AfterTargets="ComputeResolvedFilesToPublishList" Condition="'$(PublishSingleFile)' == 'true'">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(Filename)%(Extension)' == 'eng.traineddata' Or '%(Filename)%(Extension)' == 'tesseract50.dll' Or '%(Filename)%(Extension)' == 'leptonica-1.82.0.dll'" />
+    </ItemGroup>
+  </Target>
+</Project>

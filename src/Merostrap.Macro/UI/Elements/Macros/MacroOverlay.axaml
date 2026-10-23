@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:m="using:Merostrap.Macros" xmlns:ic="clr-namespace:LucideAvalonia;assembly=LucideAvalonia"
+ x:Class="Merostrap.UI.Elements.Macros.MacroOverlay" x:DataType="m:MacroWorkspace"
+ Title="Merostrap macro overlay" Width="320" SizeToContent="Height" MaxHeight="500" CanResize="False"
+ WindowDecorations="None" Topmost="True" ShowInTaskbar="False" ShowActivated="False"
+ Background="Transparent" TransparencyBackgroundFallback="Transparent" TransparencyLevelHint="Transparent" Foreground="#ECECF1" RequestedThemeVariant="Dark">
+ <Window.Styles>
+  <Style Selector="Grid.overlayControls"><Setter Property="IsVisible" Value="False"/></Style>
+  <Style Selector="Window:pointerover Grid.overlayControls"><Setter Property="IsVisible" Value="True"/></Style>
+  <Style Selector="Button"><Setter Property="Width" Value="28"/><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="0"/><Setter Property="Background" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/></Style>
+ </Window.Styles>
+ <Border Background="#B8000000" BorderBrush="#30FFFFFF" BorderThickness="1" CornerRadius="0" Padding="8,5">
+  <Grid RowDefinitions="Auto,Auto">
+   <Grid x:Name="OverlayControls" Classes="overlayControls" ColumnDefinitions="*,Auto">
+   <Border x:Name="DragArea" Background="Transparent" PointerPressed="DragPressed">
+    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center" Margin="8,0">
+     <TextBlock IsVisible="{Binding Health.Enabled}" Text="{Binding Health.Reading}" FontSize="10" Foreground="#D2A579" ToolTip.Tip="Health"/>
+    </StackPanel>
+   </Border>
+   <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Spacing="2">
+    <Button x:Name="LockButton" Command="{Binding ToggleLockCommand}" ToolTip.Tip="{Binding LockLabel}" AutomationProperties.Name="{Binding LockLabel}"><ic:Lucide Icon="{Binding LockIcon}" Width="15" Height="15" StrokeBrush="#C6B6FF"/></Button>
+    <Button x:Name="HideButton" Click="HideClicked" ToolTip.Tip="Hide overlay" AutomationProperties.Name="Hide overlay"><ic:Lucide Icon="X" Width="11" Height="11"/></Button>
+   </StackPanel>
+   </Grid>
+     <ScrollViewer Grid.Row="1" MaxHeight="420" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+     <TextBlock Text="No keybinds enabled" IsVisible="{Binding NoOverlayBindings}" Foreground="#969CAA" FontSize="12" Margin="8,6"/>
+     <ItemsControl ItemsSource="{Binding OverlayBindings}">
+      <ItemsControl.ItemTemplate><DataTemplate x:DataType="m:MacroBindingSummary">
+       <Grid ColumnDefinitions="*,Auto" Margin="6,3">
+        <TextBlock Text="{Binding Name}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,12,0"/>
+        <Border Grid.Column="1" Background="#24FFFFFF" CornerRadius="2" Padding="6,3"><TextBlock Text="{Binding Keys}" FontSize="11"/></Border>
+       </Grid>
+      </DataTemplate></ItemsControl.ItemTemplate>
+     </ItemsControl>
+     <TextBlock Text="{Binding Health.DeafenStatus}" IsVisible="{Binding Health.ShowDeafenStatus}" Foreground="#C6B6FF" FontSize="11" Margin="8,2,8,5"/>
+    </StackPanel>
+   </ScrollViewer>
+  </Grid>
+ </Border>
+</Window>

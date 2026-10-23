@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:Merostrap.UI.Elements.Macros" x:Class="Merostrap.UI.Elements.Macros.MacroColourDialog" Width="360" Height="405" CanResize="False" WindowDecorations="None" Topmost="True" ShowInTaskbar="False" ShowActivated="False" TransparencyLevelHint="Transparent" TransparencyBackgroundFallback="Transparent" Background="Transparent" WindowStartupLocation="CenterOwner" Title="Choose colour">
+ <Window.Styles>
+  <Style Selector="TextBox"><Setter Property="Template"><ControlTemplate><Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="5" Padding="9,5"><ScrollViewer x:Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"><TextPresenter x:Name="PART_TextPresenter" Text="{TemplateBinding Text, Mode=TwoWay}" CaretIndex="{TemplateBinding CaretIndex}" SelectionStart="{TemplateBinding SelectionStart}" SelectionEnd="{TemplateBinding SelectionEnd}" SelectionBrush="#83DCAF" CaretBrush="#EEEEF2" VerticalAlignment="Center"/></ScrollViewer></Border></ControlTemplate></Setter></Style>
+
+  <Style Selector="Button"><Setter Property="Cursor" Value="Hand"/><Setter Property="Height" Value="32"/><Setter Property="Background" Value="#353539"/><Setter Property="Foreground" Value="#F2F2F4"/><Setter Property="Template"><ControlTemplate><Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="12,0"><ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center"/></Border></ControlTemplate></Setter></Style>
+  <Style Selector="Button:pointerover"><Setter Property="Opacity" Value="0.8"/></Style>
+  <Style Selector="Button.traffic"><Setter Property="Width" Value="12"/><Setter Property="Height" Value="12"/><Setter Property="Template"><ControlTemplate><Border CornerRadius="6" Background="{TemplateBinding Background}"/></ControlTemplate></Setter></Style>
+ </Window.Styles>
+ <Border Background="#363639" BorderBrush="#55555B" BorderThickness="1" CornerRadius="12" Padding="12">
+  <Grid RowDefinitions="28,*">
+   <Grid PointerPressed="DragPressed"><StackPanel Orientation="Horizontal" Spacing="9" VerticalAlignment="Top" Margin="4,4"><Button Classes="traffic" Background="#FF5F57" Click="CancelClicked" AutomationProperties.Name="Close colour picker"/><Border Width="12" Height="12" CornerRadius="6" Background="#FEBC2E"/><Border Width="12" Height="12" CornerRadius="6" Background="#28C840"/></StackPanel><TextBlock Text="Colour" Foreground="#DCDCE1" FontSize="12" HorizontalAlignment="Center"/></Grid>
+   <Border Grid.Row="1" Background="#202023" BorderBrush="#4C4C52" BorderThickness="1" CornerRadius="8" Padding="16">
+    <Grid RowDefinitions="180,28,Auto,Auto,*" RowSpacing="12">
+     <local:MacroColourPlane x:Name="Plane" AutomationProperties.Name="Saturation and brightness"/>
+     <local:MacroColourPlane x:Name="HueStrip" Grid.Row="1" IsHue="True" Height="16" AutomationProperties.Name="Hue"/>
+     <Grid Grid.Row="2" ColumnDefinitions="32,*" ColumnSpacing="10"><Border x:Name="Preview" Width="32" Height="32" CornerRadius="5"/><TextBox x:Name="Hex" Grid.Column="1" Height="32" MinHeight="0" Background="#29292D" Foreground="#EEEEF2" BorderBrush="#4C4C52" CornerRadius="5" Padding="9,5" TextChanged="HexChanged" AutomationProperties.Name="Hex colour"/></Grid>
+     <TextBlock x:Name="Error" Grid.Row="3" Text="Enter a hex colour such as #83DCAF" Foreground="#F08A8A" FontSize="11" IsVisible="False"/>
+     <Button x:Name="Apply" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Content="Apply colour" Background="#83DCAF" Foreground="#18231D" Click="ApplyClicked"/>
+    </Grid>
+   </Border>
+  </Grid>
+ </Border>
+</Window>

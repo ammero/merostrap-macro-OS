@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:m="using:Merostrap.Macros" xmlns:local="using:Merostrap.UI.Elements.Macros"
+ x:Class="Merostrap.UI.Elements.Macros.HealthPanel" x:DataType="m:HealthAutomation">
+ <Border Background="{DynamicResource MacroSurface}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="0" ClipToBounds="True" Margin="2,0" VerticalAlignment="Top">
+ <StackPanel Spacing="0">
+  <Border Background="{DynamicResource MacroSurface}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="0,0,0,1" Padding="12,0,12,12">
+   <StackPanel Spacing="8">
+    <Grid ColumnDefinitions="*,Auto,Auto" MinHeight="48">
+     <TextBlock Text="Health tracking" FontSize="13" VerticalAlignment="Center"/>
+     <Border Grid.Column="1" Height="34" VerticalAlignment="Center" Background="{DynamicResource MacroTextField}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="5" Padding="10,5" Margin="12,0">
+      <TextBlock Text="{Binding Reading}" VerticalAlignment="Center" FontSize="12" Foreground="{DynamicResource MacroMuted}" ToolTip.Tip="Current health"/>
+     </Border>
+     <ToggleSwitch Grid.Column="2" IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Center" MinWidth="0" Width="40" OnContent="" OffContent="" AutomationProperties.Name="Health tracking"/>
+    </Grid>
+    <Grid ColumnDefinitions="*,Auto" MinHeight="34">
+     <TextBlock Text="Health bar" Foreground="{DynamicResource MacroMuted}" FontSize="12" VerticalAlignment="Center"/>
+     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+      <Button Content="Auto-detect" Click="AutoDetectClicked" Width="104" Height="34" Padding="10,0"/>
+      <Button Content="{Binding RegionLabel}" Click="SelectRegionClicked" MinWidth="104" Height="34" Padding="10,0"/>
+     </StackPanel>
+    </Grid>
+    <TextBlock Text="{Binding Status}" Foreground="{DynamicResource MacroSubtle}" FontSize="11" TextWrapping="Wrap"/>
+   </StackPanel>
+  </Border>
+  <Border Background="{DynamicResource MacroSurface}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="0,0,0,1" Padding="12,0,12,12">
+   <StackPanel Spacing="8">
+    <Grid ColumnDefinitions="*,Auto" MinHeight="48">
+     <TextBlock Text="Auto Deafen" FontSize="13" VerticalAlignment="Center"/>
+     <ToggleSwitch Grid.Column="1" IsChecked="{Binding AutoDeafen, Mode=TwoWay}" VerticalAlignment="Center" MinWidth="0" Width="40" OnContent="" OffContent="" AutomationProperties.Name="Auto deafen"/>
+    </Grid>
+    <Grid ColumnDefinitions="100,*,72" ColumnSpacing="12" MinHeight="34">
+     <TextBlock Text="Deafen at" Foreground="{DynamicResource MacroMuted}" FontSize="12" VerticalAlignment="Center"/>
+     <Slider x:Name="DeafenBar" Grid.Column="1" Height="34" Minimum="1" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding DeafenPercent, Mode=TwoWay}" AutomationProperties.Name="Deafen health threshold" Cursor="Hand">
+      <Slider.Template><ControlTemplate><Grid Margin="0,5">
+       <Border Background="{DynamicResource MacroInput}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="4"/>
+       <local:ThresholdFill Value="{Binding DeafenPercent}" Fill="{DynamicResource MacroAccent}" IsHitTestVisible="False"/>
+       <Track x:Name="PART_Track" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" Value="{TemplateBinding Value, Mode=TwoWay}" Orientation="Horizontal">
+        <Track.DecreaseButton><RepeatButton Background="{DynamicResource MacroSelection}" Focusable="False"><RepeatButton.Template><ControlTemplate><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseButton>
+        <Track.IncreaseButton><RepeatButton Background="Transparent" Focusable="False"><RepeatButton.Template><ControlTemplate><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseButton>
+        <Track.Thumb><Thumb Width="6" Background="{DynamicResource MacroAccent}"><Thumb.Template><ControlTemplate><Border Background="{TemplateBinding Background}" CornerRadius="3" Margin="0,-3"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+       </Track>
+       <Grid ColumnDefinitions="*,*,*,*,*" IsHitTestVisible="False"><Border Grid.Column="0" HorizontalAlignment="Right" Width="2" Background="{DynamicResource MacroBorder}"/><Border Grid.Column="1" HorizontalAlignment="Right" Width="2" Background="{DynamicResource MacroBorder}"/><Border Grid.Column="2" HorizontalAlignment="Right" Width="2" Background="{DynamicResource MacroBorder}"/><Border Grid.Column="3" HorizontalAlignment="Right" Width="2" Background="{DynamicResource MacroBorder}"/></Grid>
+      </Grid></ControlTemplate></Slider.Template>
+     </Slider>
+     <Grid Grid.Column="2" Width="72"><NumericUpDown Width="72" Height="34" Padding="10,5,24,5" Minimum="1" Maximum="100" Increment="1" FormatString="0" ShowButtonSpinner="False" Value="{Binding DeafenPercent, Mode=TwoWay}" AutomationProperties.Name="Deafen health percentage"/><TextBlock Text="%" Foreground="{DynamicResource MacroMuted}" FontSize="12" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" IsHitTestVisible="False"/></Grid>
+    </Grid>
+    <Grid ColumnDefinitions="*,140" MinHeight="34">
+     <TextBlock Text="Discord deafen key" Foreground="{DynamicResource MacroMuted}" FontSize="12" VerticalAlignment="Center"/>
+     <local:KeybindButton Grid.Column="1" HorizontalAlignment="Right" Value="{Binding DeafenKey, Mode=TwoWay}" AutomationProperties.Name="Discord toggle deafen key" ToolTip.Tip="Use the same custom Toggle Deafen key in Discord. Start Discord undeafened."/>
+    </Grid>
+    <TextBlock Text="{Binding DeafenStatus}" Foreground="{DynamicResource MacroAccent}" FontSize="11" TextWrapping="Wrap" IsVisible="{Binding AutoDeafen}"/>
+   </StackPanel>
+  </Border>
+ </StackPanel>
+ </Border>
+</UserControl>

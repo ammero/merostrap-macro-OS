@@ -1,0 +1,12 @@
+# Notices
+
+This folder was extracted from Merostrap 3.52. Existing namespaces and file-level notices are retained. New standalone hosting and packaging code follows the surrounding MPL-2.0 code.
+
+- **Merostrap / Froststrap:** MPL-2.0; see `LICENSE`. Retain existing copyright notices.
+- **DeepWarden:** project owned by Wormcave. Adapted catalog/workflows reference `dan-ie/DeepWarden` and contributors, commit `6e41a224995ec7473bffbd55254ddf69dfb70c57`. PolyForm Noncommercial 1.0.0; see `LICENSES/DeepWarden-NOTICE.txt` and `LICENSES/PolyForm-Noncommercial-1.0.0.txt`. These files have not been relicensed under MPL.
+- **LucideAvalonia:** Marwan, MIT; `src/vendor/LucideAvalonia/LICENSE`. Lucide icon artwork has its upstream notice at `src/vendor/LucideAvalonia/Lucide/LICENSE`.
+- **Avalonia / AnimatedImage.Avalonia / CommunityToolkit.Mvvm:** public NuGet dependencies, their package licenses and notices apply. Exact versions and transitive versions are recorded in the lock files.
+- **Tesseract OCR, its .NET wrapper and English data:** Apache-2.0; see `LICENSES/Tesseract-NOTICE.txt` and `LICENSES/Tesseract-Data-Apache-2.0.txt`. Builds fetch English data from the pinned upstream revision and verify its SHA-256 before embedding it. The local cache is ignored by Git.
+- **System.Security.Cryptography.ProtectedData and Interop.UIAutomationClient:** public NuGet dependencies; retain their package license information when distributing binaries.
+
+The complete source release has mixed terms. Publishing the source does not remove upstream noncommercial restrictions.

@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="using:Merostrap.UI.Elements.Macros" xmlns:m="using:Merostrap.Macros" xmlns:ic="clr-namespace:LucideAvalonia;assembly=LucideAvalonia" x:Class="Merostrap.UI.Elements.Macros.ParryBarPanel" x:DataType="m:ParryBarController">
+ <UserControl.Styles>
+  <Style Selector="Border.parry-section"><Setter Property="Background" Value="{DynamicResource MacroSurface}"/><Setter Property="BorderBrush" Value="{DynamicResource MacroBorder}"/><Setter Property="BorderThickness" Value="0,0,0,1"/><Setter Property="CornerRadius" Value="0"/><Setter Property="Padding" Value="12,0,12,12"/></Style>
+
+ </UserControl.Styles>
+ <Border Background="{DynamicResource MacroSurface}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="0" ClipToBounds="True" Margin="2,0" VerticalAlignment="Top">
+ <StackPanel Spacing="0">
+  <Border Classes="parry-section">
+   <StackPanel Spacing="8">
+    <Grid ColumnDefinitions="26,*,Auto,52" MinHeight="48"><ic:Lucide Icon="Shield" Width="17" Height="17" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="Parry Bar" FontSize="13" VerticalAlignment="Center"/><Border Grid.Column="2" VerticalAlignment="Center" Background="{DynamicResource MacroTextField}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="4" Padding="8,4"><TextBlock Text="{Binding Status}" FontSize="11" Foreground="{DynamicResource MacroMuted}"/></Border><ToggleSwitch Grid.Column="3" IsChecked="{Binding Enabled, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" VerticalAlignment="Center" AutomationProperties.Name="Enable parry bar"/></Grid>
+    <Grid ColumnDefinitions="*,*">
+     <Button Content="Auto-detect" Height="34" HorizontalAlignment="Stretch" Margin="0,0,8,0" Click="AutoDetectClicked"/>
+     <Button Grid.Column="1" Content="{Binding SelectionLabel}" Height="34" HorizontalAlignment="Stretch" Click="SelectClicked" ToolTip.Tip="Select the original coloured cooldown bar while it is full."/>
+    </Grid>
+   </StackPanel>
+  </Border>
+  <Border Classes="parry-section">
+   <StackPanel Spacing="8" Margin="0,8,0,0">
+    <Grid ColumnDefinitions="26,*,Auto" MinHeight="34">
+     <ic:Lucide Icon="Palette" Width="16" Height="16" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/>
+     <TextBlock Grid.Column="1" Text="Colour" VerticalAlignment="Center" FontSize="12"/>
+     <Button Grid.Column="2" Click="ColorClicked" Width="28" Height="28" MinWidth="0" MinHeight="0" Padding="0" Cursor="Hand" AutomationProperties.Name="Choose parry bar colour" ToolTip.Tip="Choose colour">
+      <Button.Template><ControlTemplate><Border Width="28" Height="28" CornerRadius="0" Background="{Binding FillBrush}"/></ControlTemplate></Button.Template>
+     </Button>
+    </Grid>
+    <Grid ColumnDefinitions="26,74,*,72" ColumnSpacing="12" MinHeight="34">
+     <ic:Lucide Icon="Maximize" Width="16" Height="16" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/>
+     <TextBlock Grid.Column="1" Text="Size" VerticalAlignment="Center" FontSize="12"/>
+     <Slider x:Name="SizeBar" Grid.Column="2" Height="34" Minimum="50" Maximum="300" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ScalePercent, Mode=TwoWay}" AutomationProperties.Name="Parry bar size" Cursor="Hand">
+      <Slider.Template><ControlTemplate><Grid Margin="0,5">
+       <Border Background="{DynamicResource MacroInput}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="4"/>
+       <local:ThresholdFill Minimum="50" Maximum="300" Value="{Binding ScalePercent}" Fill="{DynamicResource MacroAccent}" IsHitTestVisible="False"/>
+       <Track x:Name="PART_Track" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" Value="{TemplateBinding Value, Mode=TwoWay}" Orientation="Horizontal">
+        <Track.DecreaseButton><RepeatButton Background="{DynamicResource MacroSelection}" Focusable="False"><RepeatButton.Template><ControlTemplate><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseButton>
+        <Track.IncreaseButton><RepeatButton Background="Transparent" Focusable="False"><RepeatButton.Template><ControlTemplate><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseButton>
+        <Track.Thumb><Thumb Width="6" Background="{DynamicResource MacroAccent}"><Thumb.Template><ControlTemplate><Border Background="{TemplateBinding Background}" CornerRadius="3" Margin="0,-3"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+       </Track>
+
+      </Grid></ControlTemplate></Slider.Template>
+     </Slider>
+     <Grid Grid.Column="3" Width="72"><NumericUpDown Width="72" Height="34" Padding="10,5,24,5" Minimum="50" Maximum="300" Increment="1" FormatString="0" ShowButtonSpinner="False" Value="{Binding ScalePercent, Mode=TwoWay}" AutomationProperties.Name="Parry bar size percentage"/><TextBlock Text="%" Foreground="{DynamicResource MacroMuted}" FontSize="12" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" IsHitTestVisible="False"/></Grid>
+    </Grid>
+    <Grid ColumnDefinitions="26,*,Auto,Auto" MinHeight="34">
+     <ic:Lucide Icon="Image" Width="16" Height="16" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/>
+     <TextBlock Grid.Column="1" Text="Image" VerticalAlignment="Center" FontSize="12"/>
+     <Button Grid.Column="2" Content="{Binding ImageLabel}" Click="ImageClicked" Height="34" MaxWidth="180"/>
+     <Button Grid.Column="3" Content="Remove" Margin="8,0,0,0" Height="34" IsVisible="{Binding HasImage}" Click="RemoveImageClicked"/>
+    </Grid>
+    <TextBlock Name="ImageError" IsVisible="False" FontSize="12" Foreground="{DynamicResource MacroAccent}" TextWrapping="Wrap"/>
+   </StackPanel>
+  </Border>
+ </StackPanel>
+ </Border>
+</UserControl>

@@ -1,0 +1,9 @@
+DeepWarden macro reference and adapted macro workflows
+Project owner: Wormcave
+Source: https://github.com/dan-ie/DeepWarden
+Commit: 6e41a224995ec7473bffbd55254ddf69dfb70c57
+Author: dan-ie and DeepWarden contributors
+License: PolyForm Noncommercial 1.0.0 (see PolyForm-Noncommercial-1.0.0.txt)
+
+The DeepWarden-derived macro workflows retain their noncommercial license.
+The surrounding Merostrap UI and launcher remain under their existing licenses.

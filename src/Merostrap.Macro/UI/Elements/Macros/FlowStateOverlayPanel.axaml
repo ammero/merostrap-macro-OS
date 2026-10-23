@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:m="using:Merostrap.Macros" xmlns:ic="clr-namespace:LucideAvalonia;assembly=LucideAvalonia"
+ x:Class="Merostrap.UI.Elements.Macros.FlowStateOverlayPanel" x:DataType="m:FlowStateOverlayController">
+ <Border Background="{DynamicResource MacroSurface}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="0,0,0,1" Padding="12,0,12,12">
+  <StackPanel Spacing="8">
+   <Grid ColumnDefinitions="26,*,Auto,52" MinHeight="48">
+    <ic:Lucide Icon="Activity" Width="17" Height="17" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/>
+    <TextBlock Grid.Column="1" Text="Flow State overlay" FontSize="13" VerticalAlignment="Center"/>
+    <Border Grid.Column="2" VerticalAlignment="Center" Background="{DynamicResource MacroTextField}" BorderBrush="{DynamicResource MacroBorder}" BorderThickness="1" CornerRadius="4" Padding="8,4"><TextBlock Text="{Binding Status}" FontSize="11" Foreground="{DynamicResource MacroMuted}"/></Border>
+    <ToggleSwitch Grid.Column="3" IsChecked="{Binding Enabled, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" VerticalAlignment="Center" AutomationProperties.Name="Enable Flow State cooldown overlay"/>
+   </Grid>
+   <Grid ColumnDefinitions="26,*,190" MinHeight="34">
+    <ic:Lucide Icon="PanelsTopLeft" Width="16" Height="16" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/>
+    <TextBlock Grid.Column="1" Text="Layout" FontSize="12" VerticalAlignment="Center"/>
+    <ComboBox Grid.Column="2" ItemsSource="{Binding Layouts}" SelectedIndex="{Binding LayoutIndex, Mode=TwoWay}" Height="34" HorizontalAlignment="Stretch" AutomationProperties.Name="Flow State overlay layout"/>
+   </Grid>
+   <Grid ColumnDefinitions="26,*,Auto" MinHeight="34">
+    <ic:Lucide Icon="Palette" Width="16" Height="16" StrokeBrush="{DynamicResource MacroMuted}" VerticalAlignment="Center"/>
+    <TextBlock Grid.Column="1" Text="Colour" FontSize="12" VerticalAlignment="Center"/>
+    <Button Grid.Column="2" Click="ColorClicked" Width="28" Height="28" MinWidth="0" MinHeight="0" Padding="0" Cursor="Hand" AutomationProperties.Name="Choose Flow State overlay colour">
+     <Button.Template><ControlTemplate><Border Width="28" Height="28" Background="{Binding FillBrush}"/></ControlTemplate></Button.Template>
+    </Button>
+   </Grid>
+  </StackPanel>
+ </Border>
+</UserControl>

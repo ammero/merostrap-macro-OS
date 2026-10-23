@@ -1,0 +1,11 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:m="using:Merostrap.Macros" xmlns:local="using:Merostrap.UI.Elements.Macros"
+ x:Class="Merostrap.UI.Elements.Macros.FlowStateCooldownOverlay" x:DataType="m:FlowStateOverlayController"
+ Title="Merostrap Flow State cooldown" Width="{Binding BarWidth}" Height="{Binding BarHeight}"
+ MinHeight="{Binding BarHeight}" MaxHeight="{Binding BarHeight}" CanResize="False"
+ WindowDecorations="None" Topmost="True" ShowInTaskbar="False" ShowActivated="False"
+ Background="Transparent" TransparencyLevelHint="Transparent">
+ <Border PointerPressed="DragPressed" Background="#202622" BorderBrush="#50756A" BorderThickness="1" CornerRadius="0" ClipToBounds="True" AutomationProperties.Name="Flow State cooldown" AutomationProperties.HelpText="{Binding Status}">
+  <local:ThresholdFill Orientation="{Binding Orientation}" Value="{Binding Fill}" Fill="{Binding FillBrush}" IsHitTestVisible="False"/>
+ </Border>
+</Window>

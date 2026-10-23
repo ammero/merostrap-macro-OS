@@ -1,0 +1,7 @@
+Tesseract .NET wrapper 5.2.0: Copyright 2012-2020 Charles Weld.
+https://github.com/charlesw/tesseract (Apache-2.0)
+Tesseract OCR native engine and English LSTM data: Tesseract OCR project.
+https://github.com/tesseract-ocr/tesseract
+https://github.com/tesseract-ocr/tessdata_best/blob/main/eng.traineddata
+Data SHA256: 8280AED0782FE27257A68EA10FE7EF324CA0F8D85BD2FD145D1C2B560BCB66BA
+See Tesseract-Data-Apache-2.0.txt for the license.
